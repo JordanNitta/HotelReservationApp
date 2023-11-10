@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { ReservationFormComponent } from './reservation-form/reservation-form.component';
+import { ReservationListComponent } from './reservation-list/reservation-list.component';
 
-const routes: Routes = [];
+// URL for are routes and then attached your components to it
+const routes: Routes = [
+  {path: "", component: HomeComponent},
+  {path: "list", component: ReservationListComponent},
+  {path: "new", component: ReservationFormComponent}
+];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
