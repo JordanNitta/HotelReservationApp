@@ -8,37 +8,51 @@ import { Reservation } from '../models/reservation';
 
 export class ReservationService {
 
-  private reservation: Reservation[] = [];
+  private reservations: Reservation[] = [];
+
+  // Before the life cycle hooks get loaded
+  constructor(){
+    let savedReservations = localStorage.getItem('reservations')
+    // When ever we create an instance of reservations it will get it from local storage
+    this.reservations = savedReservations? JSON.parse(savedReservations) : []
+  }
 
   // CRUD
 
   getReservations(): Reservation[] {
     // Get reservation and return value of type array 
-    return this.reservation;
+    return this.reservations;
   }
 
   // Get reservation by id a single reservation
-  getReservation(id: string): Reservation | undefined{
-    return this.reservation.find(res => res.id === id);
+  getReservation(id: string): Reservation | undefined {
+    return this.reservations.find(res => res.id === id);
   }
 
   // Push the reservation into array
   addReservation(reservation: Reservation): void {
-    this.reservation.push(reservation)
+
+    // unique identifier
+    reservation.id = Date.now().toString();
+
+    this.reservations.push(reservation);
+    localStorage.setItem("reservations", JSON.stringify(this.reservations));
   }
 
   // Delete Reservation
   deleteReservation(id: string): void {
-    let index = this.reservation.findIndex(res => res.id === id);
-    // splice at index and then remove one of them
-    this.reservation.splice(index, 1);
+    let index = this.reservations.findIndex(res => res.id === id);
+    this.reservations.splice(index,1)
+    localStorage.setItem("reservations", JSON.stringify(this.reservations));
   }
 
+
   // Update Reservation
-  updateReservation(updatedReservation: Reservation): void {
-    let index = this.reservation.findIndex(res => res.id === updatedReservation.id);
+  updateReservation(id: string, updatedReservation: Reservation): void {
+    let index = this.reservations.findIndex(res => res.id === id);
     // Goes to that index postion and then we put our updated Reservation at that spot
-    this.reservation[index] = updatedReservation;;
+    this.reservations[index] = updatedReservation;
+    localStorage.setItem("reservations", JSON.stringify(this.reservations));
   }
-  
+
 }

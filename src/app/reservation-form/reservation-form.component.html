@@ -1,4 +1,4 @@
-<form [formGroup]="reservationForm" (ngSubmit)="onSubmit">
+<form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
 
     <div>
         <label>Check-In Date:</label>
@@ -29,7 +29,7 @@
         <label>Guest Email:</label>
         <!-- Grab are value from the input field -->
         <input type="email" formControlName="guestEmail">
-        <div *ngIf="reservationForm.get('email')?.invalid && reservationForm.get('email')?.touched">
+        <div *ngIf="reservationForm.get('guestEmail')?.invalid && reservationForm.get('guestEmail')?.touched">
             email is required
         </div>
     </div>
@@ -41,6 +41,5 @@
             Room Number is required
         </div>
     </div>
-
-    <button type="submit" [disabled]="reservationForm.invalid">Submit</button>
+    <button type="submit">Submit</button>
 </form>

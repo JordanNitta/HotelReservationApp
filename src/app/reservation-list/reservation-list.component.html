@@ -1,1 +1,20 @@
-<p>reservation-list works!</p>
+<h2>Reservation List</h2>
+
+<ul *ngIf="reservations.length; else noReservation">
+    <li *ngFor="let reservation of reservations">
+        Guest: {{reservation.guestName}}
+        Email: {{reservation.guestEmail}}
+        Room No: {{reservation.roomNumber}}
+        Check-In: {{reservation.checkInDate}}
+        Check-Out: {{reservation.checkOutDate}}
+        <!-- add a click event and call are method delete reservation and pass in the id of the reservation we want to delete -->
+        <button (click)="deleteReservation(reservation.id)">Delete</button>
+        <!-- Route to edit with the id provided in the URL -->
+        <button [routerLink]="['/edit', reservation.id]">Edit</button>
+    </li>
+</ul>
+
+<!-- Not visible by default we need to activate it -->
+<ng-template #noReservation>
+    <p>No reservations available</p>
+</ng-template>
