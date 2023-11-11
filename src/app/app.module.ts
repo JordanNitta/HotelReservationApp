@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 // Need to import the modules
 import { HomeModule } from './home/home.module';
 import { ReservationModule } from './reservation/reservation.module';
+// HTTP client module so we can make api request
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +19,8 @@ import { ReservationModule } from './reservation/reservation.module';
     BrowserModule,
     AppRoutingModule,
     HomeModule,
-    ReservationModule
+    ReservationModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
