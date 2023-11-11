@@ -57,14 +57,26 @@ export class ReservationFormComponent implements OnInit{
   
 
   onSubmit() {
-    console.log('hi')
+    
       // Check if the form is valid
     if(this.reservationForm.valid){
-      console.log('form invalid')
+      console.log('form valid')
       // Get the form values and create a Reservation object
       let reservation: Reservation = this.reservationForm.value;
-      // Call the addReservation method in the ReservationService to add the reservation
-      this.reservationService.addReservation(reservation);
+
+      // Grabing the ID from the paramMap
+      let id = this.activatedRoute.snapshot.paramMap.get('id');
+
+      // Check if 'id' has a value (i.e., if the 'id' parameter is present in the route)
+      if (id) {
+        // Update the existing reservation if 'id' is present
+        this.reservationService.updateReservation(id, reservation);
+      } else {
+        //New
+        // Add a new reservation if 'id' is not present
+        // Call the addReservation method in the ReservationService to add the reservation
+        this.reservationService.addReservation(reservation);
+      }
 
       // Route the user to another page after submiting
       this.router.navigate(['/list'])
